@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Opens files based on their mimetypes
+
+# Check for arguments
+if [ $# == 0 ]; then
+    echo "Usage: open FILE..."
+fi
+
+# File array initializations
+DIRECTORY=()
+PDF=()
+TEXT=()
+
+# Traverse through given files
+for FILE in "$@"
+do
+    # Check file mimetype
+    case $(file --mime-type "$FILE" --brief --dereference) in
+        application/pdf)
+            # Open file using preferred application
+            PDF+=("$FILE")
+            ;;
+        inode/directory)
+            DIRECTORY+=("$FILE")
+            ;;
+        text/*)
+            TEXT+=("$FILE")
+            ;;
+        *)
+            echo "Cannot open file \"$FILE\". Skipping."
+            ;;
+    esac
+done
+
+# Open files in array
+if [ ${#DIRECTORY[@]} -gt 0 ]; then
+    spacefm --no-saved-tabs "${DIRECTORY[@]}" &
+fi
+
+if [ ${#PDF[@]} -gt 0 ]; then
+    zathura "${PDF[@]}" &
+fi
+
+if [ ${#TEXT[@]} -gt 0 ]; then
+    nvim -p "${TEXT[@]}"
+fi

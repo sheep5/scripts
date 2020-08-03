@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Created By Aditya Shakya
+## Modified by Nathanael Putro
+
+MENU="$(rofi -sep "|" -dmenu -i -p "Menu" -width 12 -hide-scrollbar -line-padding 4 -padding 20 -lines 6 <<< " Sleep| Reboot| Shutdown| System Monitor| File Explorer| Network Connections")"
+            case "$MENU" in
+                *"Sleep")
+                    systemctl --ignore-inhibitors suspend
+                    ;;
+                *"Reboot")
+                    systemctl reboot
+                    ;;
+                *"Shutdown")
+                    systemctl --ignore-inhibitors poweroff
+                    ;;
+                *"System Monitor")
+                    termite --exec=htop
+                    ;;
+                *"File Explorer")
+                    spacefm
+                    ;;
+                *"Network Connections")
+                    networkmanager_dmenu
+                    ;;
+            esac
