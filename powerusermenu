@@ -1,10 +1,18 @@
 #!/bin/bash
 
-## Created By Aditya Shakya
-## Modified by Nathanael Putro
+#     ____  ____ _      _____  _______  __________  _________ ___  ___  ____  __  __
+#    / __ \/ __ \ | /| / / _ \/ ___/ / / / ___/ _ \/ ___/ __ `__ \/ _ \/ __ \/ / / /
+#   / /_/ / /_/ / |/ |/ /  __/ /  / /_/ (__  )  __/ /  / / / / / /  __/ / / / /_/ / 
+#  / .___/\____/|__/|__/\___/_/   \__,_/____/\___/_/  /_/ /_/ /_/\___/_/ /_/\__,_/  
+# /_/                                                                               
+#
+# Windows-inspired poweruser menu
+#
+# Written by Nathanael Putro
+# Adapted from Aditya Shakya's powermenu-alt script (https://github.com/adi1090x/polybar-themes/blob/master/polybar-5/scripts/powermenu-alt)
 
-MENU="$(rofi -sep "|" -dmenu -i -p "Menu" -width 12 -hide-scrollbar -line-padding 4 -padding 20 -lines 6 <<< " Sleep| Reboot| Shutdown| System Monitor| File Explorer| Network Connections")"
-            case "$MENU" in
+menu="$(rofi -sep "|" -dmenu -i -p "Menu" -width 12 -hide-scrollbar -line-padding 4 -padding 20 -lines 6 <<< " Sleep| Reboot| Shutdown| System Monitor| File Explorer| Network Connections")"
+            case "$menu" in
                 *"Sleep")
                     systemctl --ignore-inhibitors suspend
                     ;;

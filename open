@@ -1,6 +1,15 @@
 #!/bin/sh
-
-# Opens files based on their mimetypes
+  
+#   ____  ____  ___  ____ 
+#  / __ \/ __ \/ _ \/ __ \
+# / /_/ / /_/ /  __/ / / /
+# \____/ .___/\___/_/ /_/ 
+#     /_/                 
+#
+# MacOS-inspired mimetype-based file opener
+# 
+# Written by Nathanael Putro
+# Adapted from Salman Abedin's launch.sh (https://gist.github.com/salman-abedin/6f52c52e465d89d489f9ea8d891c7332)
 
 # Check for arguments
 if [ $# == 0 ]; then
@@ -8,40 +17,40 @@ if [ $# == 0 ]; then
 fi
 
 # File array initializations
-DIRECTORY=()
-PDF=()
-TEXT=()
+directory=()
+pdf=()
+text=()
 
 # Traverse through given files
-for FILE in "$@"
+for file in "$@"
 do
     # Check file mimetype
-    case $(file --mime-type "$FILE" --brief --dereference) in
+    case $(file --mime-type "$file" --brief --dereference) in
         application/pdf)
             # Open file using preferred application
-            PDF+=("$FILE")
+            pdf+=("$file")
             ;;
         inode/directory)
-            DIRECTORY+=("$FILE")
+            directory+=("$file")
             ;;
         text/*)
-            TEXT+=("$FILE")
+            text+=("$file")
             ;;
         *)
-            echo "Cannot open file \"$FILE\". Skipping."
+            echo "Cannot open file \"$file\". Skipping."
             ;;
     esac
 done
 
 # Open files in array
-if [ ${#DIRECTORY[@]} -gt 0 ]; then
-    spacefm --no-saved-tabs "${DIRECTORY[@]}" &
+if [ ${#directory[@]} -gt 0 ]; then
+    spacefm --no-saved-tabs "${directory[@]}" &
 fi
 
-if [ ${#PDF[@]} -gt 0 ]; then
-    zathura "${PDF[@]}" &
+if [ ${#pdf[@]} -gt 0 ]; then
+    zathura "${pdf[@]}" &
 fi
 
-if [ ${#TEXT[@]} -gt 0 ]; then
-    nvim -p "${TEXT[@]}"
+if [ ${#text[@]} -gt 0 ]; then
+    nvim -p "${text[@]}"
 fi
