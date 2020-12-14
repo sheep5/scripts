@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#               __            __
+#    ____ ___  / /___________/ /
+#   / __ `__ \/ //_/ ___/ __  / 
+#  / / / / / / ,< / /__/ /_/ /  
+# /_/ /_/ /_/_/|_|\___/\__,_/   
+#
+# Make and change into new directory
+#
+# Written by Nathanael Putro
+
+# Check for arguments
+if [ $# != 1 ]; then
+    echo "Usage: mkcd /path/to/directory"
+    exit 1
+fi
+
+directory=$1:
+
+# Zsh's take
+#mkdir -p $@ && cd ${@:$#}
+
+mkdir -p "$@" && eval cd "\"\$$#\""
