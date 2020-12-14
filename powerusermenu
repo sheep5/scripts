@@ -23,7 +23,7 @@ menu="$(rofi -sep "|" -dmenu -i -p "Menu" -width 12 -hide-scrollbar -line-paddin
                     systemctl --ignore-inhibitors poweroff
                     ;;
                 *"System Monitor")
-                    termite --exec=htop
+                    termite --exec=bashtop
                     ;;
                 *"File Explorer")
                     spacefm
