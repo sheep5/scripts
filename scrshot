@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#                         __          __ 
+#    ____________________/ /_  ____  / /_
+#   / ___/ ___/ ___/ ___/ __ \/ __ \/ __/
+#  (__  ) /__/ /  (__  ) / / / /_/ / /_  
+# /____/\___/_/  /____/_/ /_/\____/\__/  
+#
+# Simple shotgun-based screenshot utility
+#
+# Written by Nathanael Putro
+
+# Get the focused bspwm node ID
+window_id=$(bspc query --nodes --node)
+
+# Pipe the raw screen capture into the clipboard
+shotgun --id "$window_id" --format png - | \
+xclip -target 'image/png' -selection clipboard
